@@ -39,4 +39,4 @@ PY
 fi
 chmod 600 .env
 .venv/bin/python -m py_compile server.py
-printf '360YA Explorer Community 1.0.1 instalado. Ejecutá bash run.sh.\n'
+printf '360YA Explorer Community 1.0.2 instalado. Ejecutá bash run.sh.\n'
