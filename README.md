@@ -26,6 +26,24 @@ Explorador de archivos gratuito, de código abierto y autoalojado para Debian GN
 
 ---
 
+## Screenshots / Capturas
+
+### Dual-pane file manager / Explorador de dos paneles
+
+![360YA Explorer Community - dual-pane file manager, editor and history](docs/screenshots/explorer.png)
+
+### Login / Inicio de sesión
+
+![360YA Explorer Community - login and SFTP connection form](docs/screenshots/login.png)
+
+### Multimedia preview / Vista previa multimedia 360°
+
+![360YA Explorer Community - multimedia preview with 2D, 180, 360 and VR controls](docs/screenshots/multimedia-360.png)
+
+> Screenshots from v1.0.2. Remote SFTP browsing screenshot coming soon. / Capturas de v1.0.2. Próximamente: captura de navegación SFTP remota.
+
+---
+
 ## 1. Requisitos
 
 Versión preparada para:
