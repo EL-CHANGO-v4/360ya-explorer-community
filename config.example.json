@@ -1,0 +1,29 @@
+{
+  "app": "360YA Explorer Community",
+  "version": "1.0.1",
+  "license": "MIT",
+  "network": {
+    "host": "127.0.0.1",
+    "port": 8766,
+    "https_cookies": false
+  },
+  "storage": {
+    "data_dir": "data",
+    "state_dir": "data/.state",
+    "max_text_size_mb": 2,
+    "max_upload_size_mb": 512,
+    "default_volumes": [
+      {"path": "trabajo", "name": "Trabajo · disco del sistema", "writable": true},
+      {"path": "archivo", "name": "Trabajo · disco multimedia", "writable": true},
+      {"path": "fotos", "name": "Fotografías", "writable": true},
+      {"path": "videos", "name": "Videos", "writable": true},
+      {"path": "panorama", "name": "Videos panorámicos", "writable": true}
+    ]
+  },
+  "security": {
+    "session_ttl_seconds": 3600,
+    "min_password_length": 12,
+    "two_phase_commit": true,
+    "audit_logging": true
+  }
+}

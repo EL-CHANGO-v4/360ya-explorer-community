@@ -1,0 +1,15 @@
+{
+  "id": "/explorer",
+  "name": "360YA Explorer Community",
+  "short_name": "360YA Explorer",
+  "lang": "es",
+  "start_url": "/explorer",
+  "scope": "/explorer",
+  "display": "standalone",
+  "background_color": "#12161b",
+  "theme_color": "#1b2432",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}

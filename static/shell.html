@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>360YA Explorer Community v1.0.1</title>
+<link rel="stylesheet" href="/explorer/assets/style.css?v=105">
+<script type="module" src="/explorer/assets/app.js?v=105"></script>
+<meta name="theme-color" content="#1b2432">
+<link rel="manifest" href="/explorer/assets/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/explorer/assets/icon-192.png">
+<script defer src="/explorer/assets/pwa.js"></script>
+</head>
+<body>
+<header>
+<a class="brand" href="/explorer">360YA <b>Explorer</b> <small style="font-size:.8rem;color:var(--teal)">Community v1.0.1</small></a>
+<div class="identity"><span id="identity"></span><span id="version"></span></div>
+<div class="account-actions">
+<button id="install-app" type="button" hidden>Instalar app</button>
+<button id="about" type="button">Acerca de</button>
+<button id="change-password" type="button">Cambiar contraseña</button>
+<button id="logout" type="button">Cerrar sesión</button>
+</div>
+</header>
+<div class="console">
+<nav id="volumes" class="volumes" aria-label="Volúmenes"></nav>
+<nav class="actions" id="actions" aria-label="Operaciones">
+<button id="tree-toggle" aria-expanded="false">☷ Carpetas</button>
+<button data-action="new-folder">Nueva carpeta</button>
+<button data-action="new-file">Nuevo archivo</button>
+<button data-action="upload" class="upload">↑ Subir archivos</button>
+<button data-action="copy">Copiar</button>
+<button data-action="cut">Cortar</button>
+<button data-action="paste">Pegar</button>
+<button data-action="rename">Renombrar</button>
+<button data-action="delete" class="delete">Eliminar</button>
+<button data-action="search">Buscar</button>
+<button data-action="trash">Papelera</button>
+<button data-action="history">Historial</button>
+<button data-action="connect" id="btn-connect" style="margin-left:auto;background:#25374d;border-color:#3d5675">Conectar VPS</button>
+<button id="disconnect" type="button" hidden>Desconectar SFTP</button>
+</nav>
+<main class="workspace">
+<aside><h2>Ubicaciones</h2><div id="tree"></div><h2>Atajos</h2><div id="protected"></div></aside>
+<section id="left" class="panel" aria-label="Panel izquierdo"></section>
+<section id="right" class="panel" aria-label="Panel derecho"></section>
+</main>
+</div>
+<section class="dock" aria-label="Herramientas de archivos">
+<nav class="dock-nav" aria-label="Herramientas">
+<button id="editor-tab" class="editor-tab" aria-pressed="true">‹› Editor</button>
+<button id="history-tab" aria-pressed="true">Historial</button>
+</nav>
+<div class="dock-grid">
+<section id="editor-dock" class="dock-pane" aria-label="Editor"><div class="dock-heading">Editor</div><p class="empty">Abrí un archivo de texto para editarlo.</p></section>
+<section id="history-dock" class="dock-pane" aria-label="Actividad reciente"><div class="dock-heading">Actividad reciente</div><div id="recent"></div></section>
+</div>
+</section>
+<footer><span id="status" role="status"></span><progress id="progress" hidden></progress><button id="cancel" hidden>Cancelar subida</button></footer>
+<dialog id="dialog"><div id="modal"></div></dialog>
+<menu id="context" hidden></menu>
+<input id="file" type="file" hidden>
+</body>
+</html>

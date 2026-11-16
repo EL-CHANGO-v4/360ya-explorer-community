@@ -1,0 +1,12 @@
+{
+  "app": "360YA Explorer Community",
+  "version": "1.0.0",
+  "theme": "dark-compact",
+  "features": {
+    "dual_panel": true,
+    "editor_dock": true,
+    "trash_recycle": true,
+    "audit_history": true,
+    "media_player_vr": true
+  }
+}

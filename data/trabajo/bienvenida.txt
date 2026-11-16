@@ -1,0 +1,15 @@
+Bienvenido a 360YA Explorer Community v1.0
+========================================
+
+Software libre, gratuito y autoalojado para la gestión de archivos y servidores.
+Interfaz oscura basada en el Explorer original.
+
+Características principales:
+- Navegación dual con árboles de directorios y atajos
+- Editor integrado en el dock inferior con numeración de líneas y resaltado
+- Papelera recuperable completa con metadatos y restauración
+- Historial de operaciones y auditoría en tiempo real
+- Búsqueda recursiva con filtros por fecha, tamaño y extensión
+- Visualizador multimedia universal 2D, 180° y 360° VR
+- Gestión segura de permisos octales (chmod)
+- Subida y descarga de archivos con transferencia en streaming

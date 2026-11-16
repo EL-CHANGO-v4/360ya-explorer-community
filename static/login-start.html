@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>360YA Explorer Community v1.0.1</title>
+  <link rel="stylesheet" href="/explorer/assets/style.css">
+  <style>
+    .signin small { font-size: 0.85rem; color: var(--teal); margin-left: 0.4rem; font-weight: normal; }
+    .subtitle { color: var(--muted); margin-bottom: 1.2rem; font-size: 0.9rem; }
+    .signin main { width: min(540px, calc(100vw - 24px)); }
+    .signin fieldset { margin: 1rem 0; padding: .6rem .9rem; border: 1px solid #37465b; border-radius: .7rem; min-width: 0; }
+    .signin legend { padding: 0 .4rem; color: #85e5cf; font-weight: 600; }
+    .signin .endpoint { display: grid; grid-template-columns: minmax(0, 1fr) 82px; gap: .7rem; }
+    .signin .actions { display: flex; gap: .6rem; flex-wrap: wrap; }
+    .signin .remember { display:flex; flex-direction:row; align-items:center; margin:.8rem 0 .25rem; }
+    .signin .remember input { width:auto; }
+    .signin #saved-actions { margin-bottom: .65rem; }
+    .signin #saved-actions[hidden] { display:none; }
+    .signin #error:empty { display: none; }
+    .footer-note { margin-top: 1.5rem; text-align: center; color: var(--muted); font-size: 0.8rem; }
+  </style>
+<meta name="theme-color" content="#1b2432">
+<link rel="manifest" href="/explorer/assets/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/explorer/assets/icon-192.png">
+<script defer src="/explorer/assets/pwa.js"></script>
+</head>
+<body class="signin">
+  <main>
+    <p class="brand">360YA <b>Explorer</b> <small>Community v1.0.1</small></p>
+    <h1>Ingresar a Explorer</h1>
+    <p class="subtitle">Usá tu contraseña de Explorer para iniciar sesión. Para conectarte a OVHcloud u otro servidor, completá también los datos SSH.</p>
+    <form method="post" action="/explorer" id="login-form">
+      <label>Usuario de Explorer
+        <input name="username" id="username" type="text" value="community" autocapitalize="none" spellcheck="false" required maxlength="254" autocomplete="username">
+      </label>
+      <label>Contraseña de Explorer
+        <input name="password" id="password" type="password" required maxlength="256" autocomplete="current-password" placeholder="Mínimo 12 caracteres" autofocus>
+      </label>
+      <fieldset>
+        <legend>Servidor remoto · SFTP</legend>
+        <div class="endpoint">
+          <label>IP o dominio<input id="ssh-host" type="text" maxlength="253" spellcheck="false" autocomplete="off"></label>
+          <label>Puerto<input id="ssh-port" type="number" min="1" max="65535" value="22"></label>
+        </div>
+        <label>Usuario SSH<input id="ssh-user" type="text" maxlength="254" autocomplete="off"></label>
+        <label>Contraseña SSH<input id="ssh-password" type="password" autocomplete="off"></label>
+        <details class="connection-options" id="ssh-options">
+          <summary>Clave privada y huella SSH</summary>
+          <label>Clave privada<input id="ssh-key" type="file"></label>
+          <label>Frase de la clave<input id="ssh-passphrase" type="password" autocomplete="off"></label>
+          <label>Huella SSH<input id="ssh-fingerprint" type="text" placeholder="SHA256:…" autocomplete="off" spellcheck="false"></label>
+        </details>
+        <label class="remember"><input id="remember-ssh" type="checkbox"> Recordar estos datos SSH en este navegador</label>
+      </fieldset>
+      <button id="install-app" type="button" hidden>Instalar app</button>
+<p id="password-message" role="status" hidden>Contraseña actualizada. Ingresá con la nueva.</p>
+      <p class="danger" id="error" role="status"></p>
+      <div class="actions" id="saved-actions" hidden>
+        <button class="primary" type="submit" value="saved" formnovalidate>Conectar al servidor guardado</button>
+        <button id="forget-ssh" type="button">Olvidar datos SSH</button>
+      </div>
+      <div class="actions">
+        <button class="primary" type="submit" value="remote" formnovalidate>Conectar SFTP</button>
+        <button type="submit" value="local" formnovalidate>Continuar en local</button>
+      </div>
+    </form>
+    <p class="footer-note">FREE &amp; OPEN SOURCE FOREVER · 360YA Community</p>
+  </main>
+  <script type="module">
+    import {profileKey,encryptProfile,decryptProfile} from '/explorer/assets/ssh-profile.js';
+    const form = document.querySelector('#login-form');
+    const control = id => document.getElementById(id);
+
+    const changed = new URLSearchParams(location.search).get('password');
+    if (changed==='changed' || changed==='profile') {
+      const message = control('password-message');
+      if (changed==='profile') message.textContent += ' Volvé a guardar los datos SSH en este navegador.';
+      message.hidden = false;
+      history.replaceState(null,'','/explorer');
+    }
+    const errorBox = control('error');
+    try {
+      const available = Boolean(crypto.subtle);
+      control('remember-ssh').disabled = !available;
+      control('saved-actions').hidden = !available || !localStorage.getItem(profileKey);
+    } catch {
+      control('remember-ssh').disabled = true;
+    }
+    control('forget-ssh').addEventListener('click',() => {
+      try {
+        localStorage.removeItem(profileKey);
+        control('saved-actions').hidden = true;
+        errorBox.textContent = '';
+      } catch {
+        errorBox.textContent = 'El navegador no permitió borrar los datos guardados.';
+      }
+    });
+
+    async function post(url,body,csrf) {
+      const headers = {'Content-Type':'application/json'};
+      if (csrf) headers['X-CSRF-Token'] = csrf;
+      const response = await fetch(url,{method:'POST',headers,body:JSON.stringify(body)});
+      const data = await response.json();
+      if (!response.ok) {
+        const error = new Error(data.detail || data.error || 'No se pudo completar la solicitud.');
+        error.status = response.status;
+        throw error;
+      }
+      return data;
+    }
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      const mode = event.submitter?.value || 'remote';
+      const remote = mode!=='local';
+      const buttons = [...form.querySelectorAll('button')];
+      if (buttons.some(button => button.disabled)) return;
+      errorBox.textContent = '';
+      for (const id of ['username','password']) {
+        if (!control(id).reportValidity()) return;
+      }
+      const host = control('ssh-host').value.trim();
+      const user = control('ssh-user').value.trim();
+      const key = control('ssh-key').files[0];
+      if (mode==='remote') {
+        if (!host || !user || (!control('ssh-password').value && !key)) {
+          errorBox.textContent = 'Completá la IP o dominio, el usuario SSH y la contraseña o clave privada.';
+          return;
+        }
+        if (!control('ssh-port').reportValidity() || !control('ssh-port').value) return;
+        if (key?.size>65536) {
+          errorBox.textContent = 'La clave privada supera los 64 KiB.';
+          return;
+        }
+      }
+      for (const button of buttons) button.disabled = true;
+      try {
+        const password = control('password').value;
+        const login = await post('/api/login',{username:control('username').value,password});
+        if (remote) {
+          try {
+            const profile = mode==='saved' ? await decryptProfile(password,localStorage.getItem(profileKey)) : {
+              host,username:user,port:Number(control('ssh-port').value),
+              password:control('ssh-password').value || null,
+              private_key:key ? await key.text() : null,
+              passphrase:control('ssh-passphrase').value || null,
+              fingerprint:control('ssh-fingerprint').value.trim() || null
+            };
+            await post('/api/connect',profile,login.csrf);
+            if (mode==='remote' && control('remember-ssh').checked) {
+              try {
+                localStorage.setItem(profileKey,await encryptProfile(password,profile));
+              } catch {
+                errorBox.textContent = 'La conexión se abrió, pero el navegador no permitió guardar los datos SSH. Pulsá Abrir Explorer para continuar.';
+                control('remember-ssh').checked = false;
+                control('remember-ssh').disabled = true;
+                const proceed = document.createElement('a');
+                proceed.href = '/explorer';
+                proceed.textContent = 'Abrir Explorer';
+                errorBox.append(' ',proceed);
+                return;
+              }
+            }
+          } catch (error) {
+            if (error.status===403) control('ssh-options').open = true;
+            throw error;
+          }
+        }
+        for (const id of ['password','ssh-password','ssh-passphrase','ssh-key']) control(id).value = '';
+        location.replace('/explorer');
+      } catch (error) {
+        errorBox.textContent = error.message;
+      } finally {
+        for (const button of buttons) button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reproductor universal · 360YA</title>
+<link rel="stylesheet" href="/explorer/assets/style.css?v=134">
+<body class="preview">
+<div id="viewer" class="ya-client-viewport">
+    <video id="ya-player-texture" playsinline preload="metadata"></video>
+    <div id="ya-demo-stage" hidden></div>
+    <nav class="preview-controls" aria-label="Controles del reproductor">
+        <select id="ya-demo-mode" aria-label="Proyección" hidden><option value="2d">2D</option><option value="180">180°</option><option value="360">360°</option></select>
+        <button id="ya-demo-full" type="button" hidden>Maximizar</button><button id="ya-demo-vr" type="button" hidden>VR</button>
+        <button type="button" id="preview-play" aria-pressed="false" hidden>Reproducir</button>
+        <button type="button" data-mode="2d">2D</button><button type="button" data-mode="180">180°</button>
+        <button type="button" data-mode="360">360°</button><button type="button" id="preview-vr">VR</button>
+        <button type="button" id="preview-full">⛶ Pantalla completa</button>
+        <button type="button" id="preview-audio">Audio On</button>
+        <span id="ya-demo-status" role="status"></span>
+    </nav>
+</div>
+<script src="/explorer/assets/view.js?v=134"></script><script src="/explorer/assets/ya-player.js?v=135"></script>
+</body></html>
