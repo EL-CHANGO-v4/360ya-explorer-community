@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-360YA Explorer Community v1.0.1
+360YA Explorer Community v1.0.2
 Software libre, gratuito y autoalojado.
 Consolidación integral del diseño original y mejoras comunitarias.
 """
@@ -1110,7 +1110,7 @@ def api_session(req: Request):
         'data': {
             'csrf': s['csrf'],
             'email': 'FREE & OPEN SOURCE FOREVER',
-            'version': 'Community 1.0.1',
+            'version': 'Community 1.0.2',
             'user': s['user'],
             'connected': bool(s.get('connection')),
             'host': conn.get('host')
@@ -1194,7 +1194,7 @@ def explorer_api_get(req: Request):
             'data': {
                 'csrf': s['csrf'],
                 'email': 'FREE & OPEN SOURCE FOREVER',
-                'version': 'Community 1.0.1',
+                'version': 'Community 1.0.2',
                 'user': s['user']
             }
         }
@@ -1473,5 +1473,5 @@ if __name__ == '__main__':
     import uvicorn
     host = os.environ.get('EXPLORER_HOST', '127.0.0.1')
     port = int(os.environ.get('EXPLORER_PORT', '8766'))
-    print(f"Iniciando 360YA Explorer Community v1.0.1 en http://{host}:{port}")
+    print(f"Iniciando 360YA Explorer Community v1.0.2 en http://{host}:{port}")
     uvicorn.run(app, host=host, port=port)

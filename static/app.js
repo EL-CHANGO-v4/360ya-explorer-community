@@ -916,12 +916,12 @@ async function protectedRead(op, fields) {
 
 $('#about').addEventListener('click',() => {
     const logo = node('img',undefined,'about-logo');
-    logo.src = '/explorer/assets/seguridad-logo.webp';
-    logo.alt = 'Seguridad 360YA';
+    logo.src = '/explorer/assets/img/explorer-logo.png';
+    logo.alt = '360YA Explorer Community';
     logo.width = 512;
-    logo.height = 363;
-    const website = node('a','seguridad.360ya.live');
-    website.href = 'https://seguridad.360ya.live';
+    logo.height = 341;
+    const website = node('a','360YA Explorer Community en GitHub');
+    website.href = 'https://github.com/EL-CHANGO-v4/360ya-explorer-community';
     website.target = '_blank';
     website.rel = 'noopener noreferrer';
     const content = node('div',undefined,'about-content');

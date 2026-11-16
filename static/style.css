@@ -144,3 +144,17 @@ dialog .dialog-form .field{display:flex;flex-direction:column;align-items:stretc
 .about-content p{margin:0;max-width:58ch}
 .about-content small{color:var(--muted)}
 .about-logo{display:block;width:min(220px,100%);height:auto;border-radius:.65rem}
+
+/* Identidad 360YA Explorer Community v1.0.2 */
+.brand-logo {
+    width: 46px;
+    height: 32px;
+    object-fit: cover;
+    vertical-align: middle;
+    border-radius: 5px;
+    margin-right: 6px;
+}
+.signin .brand-logo {
+    width: 72px;
+    height: 48px;
+}

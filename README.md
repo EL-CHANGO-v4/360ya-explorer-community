@@ -1,4 +1,4 @@
-# 360YA Explorer Community 1.0.1
+# 360YA Explorer Community 1.0.2
 
 Administrador de archivos autoalojado con dos paneles, editor e historial. Licencia MIT. Incluye A-Frame y las dependencias Python para instalar sin red en Debian 13 amd64 con Python 3.13 y `python3-venv`.
 
