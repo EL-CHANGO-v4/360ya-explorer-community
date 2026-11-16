@@ -2,6 +2,12 @@
 
 **FREE & OPEN SOURCE FOREVER**
 
+**English:** Free, open-source, self-hosted dual-pane file manager for Debian 13 AMD64. Manage local files and remote SSH/SFTP servers, with a text editor, trash, operation history and an installable PWA.
+
+**Compatibility:** Tested on Debian 13 (Trixie), AMD64, Python 3.13. Other systems and architectures are not yet validated.
+
+[Installation](#2-preparar-debian) · [Report an issue](https://github.com/EL-CHANGO-v4/360ya-explorer-community/issues) · [Contribute](CONTRIBUTING.md)
+
 Explorador de archivos gratuito, de código abierto y autoalojado para Debian GNU/Linux.
 
 360YA Explorer Community permite administrar archivos locales y conectarse a servidores remotos mediante SFTP, utilizando una interfaz web de dos paneles.
@@ -281,6 +287,18 @@ Revisá la IP, el puerto, las credenciales SSH y la huella del servidor.
 **No puedo modificar un archivo**
 
 Comprobá los permisos de la cuenta local o SSH. Explorer respeta los permisos del sistema.
+
+## Comunidad y contribuciones
+
+¡Buscamos usuarios, testers, traductores y desarrolladores de todo el mundo!
+
+- Reportá errores o proponé mejoras mediante [GitHub Issues](https://github.com/EL-CHANGO-v4/360ya-explorer-community/issues).
+- Para colaborar con código o documentación, consultá [CONTRIBUTING.md](CONTRIBUTING.md) y enviá un Pull Request.
+- Indicá versión, plataforma y pasos para reproducir los problemas; nunca compartas contraseñas, claves SSH ni archivos `.env`.
+
+**Compatibilidad verificada:** Debian 13 AMD64. Ubuntu, otras distribuciones, ARM64, Windows y macOS aún no están validados.
+
+---
 
 ## 19. Licencia y filosofía
 
